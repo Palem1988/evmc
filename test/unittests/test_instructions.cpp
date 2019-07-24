@@ -251,9 +251,21 @@ TEST(instructions, istanbul_hard_fork)
 
     for (int op{OP_STOP}; op <= OP_SELFDESTRUCT; ++op)
     {
-        if (op == OP_SELFBALANCE)
+        switch (op)
+        {
+        case OP_BALANCE:
+        case OP_EXTCODEHASH:
+        case OP_SELFBALANCE:
+        case OP_SLOAD:
             continue;
-        EXPECT_EQ(i[op], p[op]) << op;
-        EXPECT_STREQ(in[op], pn[op]) << op;
+        default:
+            EXPECT_EQ(i[op], p[op]) << op;
+            EXPECT_STREQ(in[op], pn[op]) << op;
+            break;
+        }
     }
+
+    EXPECT_EQ(i[OP_BALANCE].gas_cost, 700);
+    EXPECT_EQ(i[OP_EXTCODEHASH].gas_cost, 700);
+    EXPECT_EQ(i[OP_SLOAD].gas_cost, 800);
 }

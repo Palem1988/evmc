@@ -251,6 +251,8 @@ TEST(instructions, istanbul_hard_fork)
 
     for (int op{OP_STOP}; op <= OP_SELFDESTRUCT; ++op)
     {
+        if (op == OP_SELFBALANCE)
+            continue;
         EXPECT_EQ(i[op], p[op]) << op;
         EXPECT_STREQ(in[op], pn[op]) << op;
     }

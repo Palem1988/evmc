@@ -346,10 +346,6 @@ fn build_execute_fn(names: &VMNameSet) -> proc_macro2::TokenStream {
                 msg.as_ref().expect("EVMC message is null").into()
             };
 
-            let execution_context = unsafe {
-                ::evmc_vm::ExecutionContext::new(context.as_mut().expect("EVMC context is null"))
-            };
-
             let empty_code = [0u8;0];
             let code_ref: &[u8] = if code.is_null() {
                 assert_eq!(code_size, 0);
@@ -365,7 +361,10 @@ fn build_execute_fn(names: &VMNameSet) -> proc_macro2::TokenStream {
             };
 
             let result = ::std::panic::catch_unwind(|| {
-                container.execute(revision, code_ref, &execution_message, &execution_context)
+                let mut execution_context = unsafe {
+                  ::evmc_vm::ExecutionContext::new(context.as_mut().expect("EVMC context is null"))
+                };
+                container.execute(revision, code_ref, &execution_message, &mut execution_context)
             });
 
             let result = if result.is_err() {

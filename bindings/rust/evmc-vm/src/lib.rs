@@ -185,8 +185,8 @@ impl<'a> ExecutionContext<'a> {
         }
     }
 
-    pub fn get_tx_context(&self) -> &ExecutionTxContext {
-        &self.tx_context
+    pub fn get_tx_context(&self) -> ExecutionTxContext {
+        self.tx_context
     }
 
     pub fn account_exists(&mut self, address: &Address) -> bool {

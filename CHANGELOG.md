@@ -5,6 +5,10 @@ Documentation of all notable changes to the **EVMC** project.
 The format is based on [Keep a Changelog],
 and this project adheres to [Semantic Versioning].
 
+## [7.0.0] - unreleased
+- Added: [[#375](https://github.com/ethereum/evmc/pull/375)]
+  Support for Istanbul CHAINID opcode. `chain_id` added to `evmc_tx_context` struct.
+
 ## [6.3.1] - 2019-08-19
 
 ### Added
@@ -340,6 +344,7 @@ and this project adheres to [Semantic Versioning].
   [[#52](https://github.com/ethereum/evmc/pull/52)]
 
 
+[7.0.0]: https://github.com/ethereum/evmc/compare/v6.3.1...master
 [6.3.1]: https://github.com/ethereum/evmc/releases/tag/v6.3.1
 [6.3.0]: https://github.com/ethereum/evmc/releases/tag/v6.3.0
 [6.2.2]: https://github.com/ethereum/evmc/releases/tag/v6.2.2
